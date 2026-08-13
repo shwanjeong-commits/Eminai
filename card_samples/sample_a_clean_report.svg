@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+<rect width="1080" height="1350" fill="#f8faf7"/>
+<rect width="1080" height="150" fill="#163b2f"/>
+<text x="64" y="60" font-size="34" font-weight="700" fill="#eaf5ef">EMINAI DAILY REPORT</text>
+<text x="64" y="112" font-size="24" font-weight="400" fill="#bdd8ca">2026-07-29</text>
+<rect x="64" y="190" width="952" height="240" rx="26" fill="#fff" stroke="#d6e2dc" stroke-width="2"/>
+<text x="104" y="250" font-size="38" font-weight="700" fill="#163b2f">?? ???</text>
+<text x="104" y="315" font-size="34" font-weight="700" fill="#1b1f1d">?-?? ??? ?? ??? ??? ???,</text>
+<text x="104" y="358" font-size="34" font-weight="700" fill="#1b1f1d">??? ?? ??? ??? ???? ????.</text>
+<text x="104" y="395" font-size="24" font-weight="400" fill="#5d7068">?? 37? ? ?? 12? ? ?? 25?</text>
+<text x="64" y="520" font-size="36" font-weight="700" fill="#163b2f">?? ??? ?</text>
+<rect x="64" y="575" width="952" height="170" rx="22" fill="#fff" stroke="#d6e2dc" stroke-width="2"/>
+<circle cx="118" cy="633" r="24" fill="#2f7d62"/><text x="111" y="643" font-size="24" font-weight="700" fill="#fff">1</text>
+<text x="164" y="623" font-size="30" font-weight="700" fill="#18211d">?-?? ?? ??</text>
+<text x="164" y="671" font-size="25" font-weight="400" fill="#47564f">???? ?? ??? ?? ???? ????, ??? ????</text>
+<text x="164" y="702" font-size="25" font-weight="400" fill="#47564f">?? ??? ????.</text>
+<rect x="64" y="771" width="952" height="170" rx="22" fill="#fff" stroke="#d6e2dc" stroke-width="2"/>
+<circle cx="118" cy="829" r="24" fill="#2f7d62"/><text x="111" y="839" font-size="24" font-weight="700" fill="#fff">2</text>
+<text x="164" y="819" font-size="30" font-weight="700" fill="#18211d">?? ??</text>
+<text x="164" y="867" font-size="25" font-weight="400" fill="#47564f">?? ?? ?? ??? ?? ???? ????? ????.</text>
+<rect x="64" y="967" width="952" height="170" rx="22" fill="#fff" stroke="#d6e2dc" stroke-width="2"/>
+<circle cx="118" cy="1025" r="24" fill="#2f7d62"/><text x="111" y="1035" font-size="24" font-weight="700" fill="#fff">3</text>
+<text x="164" y="1015" font-size="30" font-weight="700" fill="#18211d">??? ??</text>
+<text x="164" y="1063" font-size="25" font-weight="400" fill="#47564f">??? ????? ???? ???100? ?? ???</text>
+<text x="164" y="1094" font-size="25" font-weight="400" fill="#47564f">????.</text>
+<rect x="64" y="1120" width="952" height="150" rx="22" fill="#eaf4ef" stroke="#bdd8ca" stroke-width="2"/>
+<text x="104" y="1172" font-size="30" font-weight="700" fill="#163b2f">?? ? ?</text>
+<text x="104" y="1225" font-size="25" font-weight="400" fill="#36453f">?? ?? ?? ? ??? ?? ?? ?? ? ?-?? ?? ?? ??</text>
+</svg>

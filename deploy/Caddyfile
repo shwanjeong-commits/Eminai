@@ -1,0 +1,14 @@
+{$SITE_DOMAIN} {
+  encode gzip
+  request_body {
+    max_size 256KB
+  }
+  header {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+    Referrer-Policy "no-referrer"
+    Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  }
+  reverse_proxy web:4173
+}

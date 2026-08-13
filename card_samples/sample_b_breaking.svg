@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+<rect width="1080" height="1350" fill="#111827"/>
+<rect width="1080" height="110" fill="#dc2626"/>
+<text x="64" y="68" font-size="38" font-weight="700" fill="#fff">BREAKING DAILY</text>
+<text x="800" y="68" font-size="24" font-weight="700" fill="#fee2e2">2026-07-29</text>
+<text x="64" y="205" font-size="34" font-weight="700" fill="#fef2f2">?? ??</text>
+<text x="64" y="285" font-size="46" font-weight="700" fill="#fff">?-?? ??? ?? ??? ???</text>
+<text x="64" y="342" font-size="46" font-weight="700" fill="#fff">???, ??? ?? ??? ???</text>
+<text x="64" y="400" font-size="46" font-weight="700" fill="#fff">???? ????.</text>
+<rect x="64" y="490" width="952" height="110" rx="20" fill="#1f2937" stroke="#374151" stroke-width="2"/>
+<text x="104" y="560" font-size="30" font-weight="700" fill="#fca5a5">?? 37? ? ?? 12? ? ?? 25?</text>
+<rect x="64" y="700" width="14" height="150" fill="#dc2626"/>
+<text x="110" y="742" font-size="32" font-weight="700" fill="#fca5a5">01</text>
+<text x="184" y="742" font-size="34" font-weight="700" fill="#fff">?-?? ?? ??</text>
+<text x="184" y="798" font-size="27" font-weight="400" fill="#d1d5db">???? ?? ??? ?? ???? ????, ??? ????</text>
+<text x="184" y="832" font-size="27" font-weight="400" fill="#d1d5db">?? ??? ????.</text>
+<rect x="64" y="875" width="14" height="150" fill="#dc2626"/>
+<text x="110" y="917" font-size="32" font-weight="700" fill="#fca5a5">02</text>
+<text x="184" y="917" font-size="34" font-weight="700" fill="#fff">?? ??</text>
+<text x="184" y="973" font-size="27" font-weight="400" fill="#d1d5db">?? ?? ?? ??? ?? ???? ????? ????.</text>
+<rect x="64" y="1050" width="14" height="150" fill="#dc2626"/>
+<text x="110" y="1092" font-size="32" font-weight="700" fill="#fca5a5">03</text>
+<text x="184" y="1092" font-size="34" font-weight="700" fill="#fff">??? ??</text>
+<text x="184" y="1148" font-size="27" font-weight="400" fill="#d1d5db">??? ????? ???? ???100? ?? ???</text>
+<text x="184" y="1182" font-size="27" font-weight="400" fill="#d1d5db">????.</text>
+<line x1="64" y1="1190" x2="1016" y2="1190" stroke="#374151" stroke-width="3"/>
+<text x="64" y="1258" font-size="28" font-weight="700" fill="#fca5a5">WATCH</text>
+<text x="190" y="1258" font-size="25" font-weight="400" fill="#e5e7eb">?? ?? ?? ? ??? ?? ?? ?? ? ?-?? ?? ?? ??</text>
+</svg>

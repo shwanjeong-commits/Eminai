@@ -1,0 +1,98 @@
+US AND SOUTH KOREA MARKET CATCH-UP DATA
+Analysis period: June 28, 2026 to July 19, 2026.
+Market prices: US close on July 17 and South Korean close on July 16.
+
+SECTION 1: VERIFIED MACRO FACTS
+
+United States:
+- June headline CPI fell 0.4% month over month and rose 3.5% year over year.
+- June core CPI was unchanged month over month and rose 2.6% year over year.
+- June final-demand PPI fell 0.3% month over month and rose 5.5% year over year.
+- June nonfarm payrolls increased by 57,000. The unemployment rate was 4.2%.
+- Average hourly earnings rose 0.3% month over month and 3.5% year over year.
+- June retail sales rose 0.2% after a revised 1.0% increase in May.
+- June industrial production rose 0.1%. It increased at a 4.0% annual rate in Q2.
+- The Federal Reserve maintained its target range at 3.50% to 3.75%.
+- The Fed described inflation as elevated and the labor market as broadly stable.
+
+South Korea:
+- The Bank of Korea raised its policy rate by 25 basis points from 2.50% to 2.75% on July 16.
+- June CPI rose 0.1% month over month and 3.2% year over year.
+- June core CPI rose 2.5% year over year.
+- The number of employed people increased by 63,000 year over year.
+- The unemployment rate was 2.8%. Youth unemployment was 7.0%.
+- June exports reached USD 102.2 billion, up 70.7% year over year.
+- June imports reached USD 66.1 billion, up 30.0% year over year.
+- The June trade surplus was USD 36.1 billion.
+- Semiconductor exports reached USD 44.9 billion.
+
+SECTION 2: VERIFIED MARKET MOVES
+
+Changes from June 29 to the latest available close:
+- S&P 500: +0.23%.
+- Nasdaq Composite: -1.16%.
+- Dow Jones Industrial Average: -0.07%.
+- Russell 2000: -1.60%.
+- KOSPI: -18.75%.
+- KOSDAQ: -13.98%.
+- USD/KRW: -3.11%, meaning the won strengthened over the full period.
+- US 10-year Treasury yield: from 4.37% to 4.54%, an increase of 17 basis points.
+- WTI crude oil: +15.59%.
+- Gold: -0.09%.
+- Copper: +2.75%.
+
+Selected US stocks:
+- Apple +18.46%, Meta +14.83%, Microsoft +6.85%, NVIDIA +4.02%.
+- IBM -23.50%, Citigroup -9.21%, Tesla -7.53%.
+- JPMorgan +3.56%, Goldman Sachs +4.41%, Bank of America +5.86%, Wells Fargo +4.79%.
+
+Selected South Korean stocks:
+- SK Hynix -29.91%.
+- Samsung Electronics -21.05%.
+- LG Chem -15.42%.
+- Samsung SDI -15.14%.
+- Hyundai Motor -14.49%.
+- NAVER -6.86% and Kakao +0.14%.
+
+SECTION 3: VERIFIED CORPORATE RESULTS AND EVENTS
+
+- Samsung Electronics issued preliminary Q2 guidance on July 7: revenue of KRW 171 trillion and operating profit of KRW 89.4 trillion.
+- Goldman Sachs reported Q2 net revenue of USD 20.34 billion, net earnings of USD 6.63 billion, EPS of USD 20.98, and annualized ROE of 23.5%.
+- JPMorgan reported adjusted EPS of USD 6.14. Trading and investment-banking activity was strong.
+- Bank of America reported Q2 net income of USD 9.1 billion and EPS of USD 1.21.
+- Wells Fargo reported Q2 revenue of USD 22.6 billion and net income of USD 6.4 billion.
+- Large US banks benefited from strong trading, investment banking, and resilient consumer activity.
+
+SECTION 4: REPORTED MARKET CONTEXT
+
+- WTI rose as US-Iran and broader Middle East tensions increased concern about oil supply.
+- Lower June US CPI temporarily reduced expectations for an immediate Fed rate increase.
+- South Korean semiconductor shares sold off as investors questioned the sustainability of AI capital spending and memory-price growth.
+- On July 8, the KOSPI entered bear-market territory after falling more than 20% from its late-June record close.
+- On July 16, the KOSPI fell 6.37% as technology shares declined, Middle East risk increased, and the Bank of Korea raised rates.
+- Strong current semiconductor earnings did not prevent share-price declines because markets focused on future earnings growth and valuation.
+- The Bank of Korea cited inflation, won volatility, housing prices, household debt, and financial stability as reasons for raising rates.
+
+SECTION 5: CROSS-MARKET CHANNELS TO EVALUATE
+
+- US cloud and AI capital spending affects Korean HBM and memory demand.
+- US semiconductor weakness can be amplified in the KOSPI because Samsung Electronics and SK Hynix have large index weights.
+- Higher oil prices can raise inflation and import costs in energy-dependent South Korea.
+- Higher US yields and a stronger dollar can pressure the won and foreign investment flows.
+- A Bank of Korea rate increase may support the won but can pressure equity valuations and leveraged positions.
+
+SECTION 6: UPCOMING ITEMS
+
+- July 28-29 Federal Reserve meeting.
+- US Q2 GDP and June PCE inflation.
+- Q2 results and AI capital-spending guidance from Alphabet, Tesla, Microsoft, Meta, and Amazon.
+- Detailed Q2 results from SK Hynix and other major Korean companies.
+- Middle East developments and whether WTI remains above USD 80.
+- Foreign investor flows in Korean semiconductor shares.
+
+ANALYSIS RULES
+
+- Treat the figures above as input facts.
+- Clearly separate facts from interpretation.
+- Do not invent forecasts, consensus estimates, events, or figures.
+- Identify conflicting signals instead of forcing a single conclusion.

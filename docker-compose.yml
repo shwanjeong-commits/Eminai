@@ -1,0 +1,84 @@
+services:
+  web:
+    build: .
+    command: python src/api_server.py
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4173
+      TELEGRAM_SESSION_PATH: /app/data/telegram_news_session
+    volumes:
+      - news-data:/app/data
+    expose:
+      - "4173"
+
+  worker:
+    build: .
+    command: python src/live_collector.py
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      TELEGRAM_SESSION_PATH: /app/data/telegram_news_session
+      MANUAL_UPDATE_LIMIT: ${MANUAL_UPDATE_LIMIT:-300}
+      FILTER_AUDIT_LIMIT: ${FILTER_AUDIT_LIMIT:-300}
+      FILTER_AUDIT_INTERVAL_SECONDS: ${FILTER_AUDIT_INTERVAL_SECONDS:-21600}
+      FILTER_AUDIT_INITIAL_DELAY_SECONDS: ${FILTER_AUDIT_INITIAL_DELAY_SECONDS:-120}
+      FILTER_AUDIT_AUTO_REPAIR: ${FILTER_AUDIT_AUTO_REPAIR:-1}
+    volumes:
+      - news-data:/app/data
+    depends_on:
+      - web
+
+  analyzer:
+    build: .
+    command: python src/analysis_worker.py
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      ANALYZER_BATCH_LIMIT: ${ANALYZER_BATCH_LIMIT:-10}
+      ANALYZER_INTERVAL_SECONDS: ${ANALYZER_INTERVAL_SECONDS:-15}
+      ANALYZER_IDLE_INTERVAL_SECONDS: ${ANALYZER_IDLE_INTERVAL_SECONDS:-60}
+    volumes:
+      - news-data:/app/data
+    depends_on:
+      - web
+
+  daily-reporter:
+    build: .
+    command: python src/daily_report_worker.py
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DAILY_REPORT_ENABLED: ${DAILY_REPORT_ENABLED:-0}
+      DAILY_REPORT_TIME_KST: ${DAILY_REPORT_TIME_KST:-08:00,18:00}
+      DAILY_REPORT_DATE_MODE: ${DAILY_REPORT_DATE_MODE:-today}
+      DAILY_REPORT_SEND_CARDS: ${DAILY_REPORT_SEND_CARDS:-1}
+    volumes:
+      - news-data:/app/data
+    depends_on:
+      - web
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - web
+
+volumes:
+  news-data:
+  caddy-data:
+  caddy-config:

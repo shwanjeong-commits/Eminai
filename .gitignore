@@ -1,0 +1,19 @@
+.env
+*.session
+*.session-journal
+__pycache__/
+*.pyc
+data/*.db
+data/*.db-journal
+backups/
+vendor/
+server.out.log
+server.err.log
+
+# SQLite databases and runtime files
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+data/*-shm
+data/*-wal
+data/*-journal

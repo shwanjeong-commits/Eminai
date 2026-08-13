@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>에미나이 Watch</title>
+    <link rel="icon" type="image/png" href="./assets/eminai_square_icon.png" />
+    <link rel="apple-touch-icon" href="./assets/eminai_square_icon.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark"><img src="./assets/eminai_square_icon.png" alt="" /></div>
+          <div>
+            <strong id="brandTitle">에미나이 Watch</strong>
+            <small id="brandSubtitle">세계정세 자동 분석 AI</small>
+          </div>
+        </div>
+
+        <nav class="nav" id="nav">
+          <button type="button" data-view="watchlist">관심 자산</button>
+          <button class="active" type="button" data-view="home">메인</button>
+          <button type="button" data-view="dashboard">상황판</button>
+          <button type="button" data-view="daily">일일 뉴스</button>
+          <button type="button" data-view="flows">이슈 흐름</button>
+          <button type="button" data-view="regions">지역 리스크</button>
+          <button type="button" data-view="assets">종목/자산</button>
+          <button type="button" data-view="market">차트</button>
+          <button type="button" data-view="indicators">경제지표</button>
+          <button type="button" data-view="calendar">주요 일정</button>
+          <button type="button" data-view="chat">경제 챗봇</button>
+          <button type="button" data-view="evaluation">분석 평가</button>
+          <button type="button" data-view="ai">AI 분석 현황</button>
+        </nav>
+
+        <section class="side-status" aria-label="실시간 상태">
+          <div class="side-label">LIVE STATUS</div>
+          <div><span>수집</span><strong id="sideCollect">ON</strong></div>
+          <div><span>분석 대기</span><strong id="sideQueued">-</strong></div>
+          <div><span>핵심 지역</span><strong id="sideRegion">-</strong></div>
+        </section>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar-branding">
+            <img class="topbar-main-logo" src="./assets/eminai_primary_logo.png" alt="EMINAI by SH" />
+            <div class="topbar-page-context">
+              <h1 id="pageTitle">에미나이 Watch</h1>
+              <p id="pageStatus">세계정세 자동 분석 AI</p>
+            </div>
+          </div>
+          <div class="top-actions">
+            <button class="lang-toggle" id="languageToggle" type="button">English Ver</button>
+            <button class="logout-button" id="logoutButton" type="button">로그아웃</button>
+            <div class="update-box">
+              <span id="updateBoxLabel">최신 업데이트</span>
+              <strong id="lastUpdatedAt">-</strong>
+              <em id="manualUpdateStatus">대기 중</em>
+            </div>
+            <button class="refresh" id="manualUpdateButton" type="button">새로고침</button>
+          </div>
+        </header>
+
+        <section id="content"></section>
+      </main>
+
+      <aside class="detail" id="detail"></aside>
+    </div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>

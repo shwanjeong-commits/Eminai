@@ -1,0 +1,13 @@
+[Unit]
+Description=Telegram News Intelligence Live Collector
+After=network.target news-api.service
+
+[Service]
+WorkingDirectory=/opt/telegram-news-intelligence
+EnvironmentFile=/opt/telegram-news-intelligence/.env
+ExecStart=/opt/telegram-news-intelligence/.venv/bin/python src/live_collector.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

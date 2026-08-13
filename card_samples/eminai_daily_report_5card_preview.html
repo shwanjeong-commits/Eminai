@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>에미나이 일일보고 카드뉴스 5장 예시</title>
+    <style>
+      :root {
+        --green: #163b2f;
+        --green-2: #2f7d62;
+        --ink: #18211d;
+        --muted: #5d7068;
+        --paper: #f8faf7;
+        --line: #d6e2dc;
+        --soft: #eaf4ef;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #e8eee9;
+        color: var(--ink);
+        font-family: "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+      }
+
+      .preview {
+        display: grid;
+        gap: 28px;
+        padding: 28px;
+        justify-content: center;
+      }
+
+      .card {
+        width: min(420px, calc(100vw - 32px));
+        aspect-ratio: 1080 / 1350;
+        background: var(--paper);
+        border: 1px solid #c9d8d0;
+        box-shadow: 0 18px 45px rgba(22, 59, 47, 0.16);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .top {
+        height: 11.5%;
+        background: var(--green);
+        color: #eaf5ef;
+        padding: 5.6% 6%;
+      }
+
+      .brand {
+        font-size: clamp(18px, 4vw, 34px);
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .date {
+        color: #bdd8ca;
+        font-size: clamp(12px, 2.5vw, 22px);
+        margin-top: 1.4%;
+      }
+
+      .content {
+        padding: 6%;
+      }
+
+      .eyebrow {
+        color: var(--green-2);
+        font-size: clamp(13px, 2.8vw, 24px);
+        font-weight: 800;
+        margin-bottom: 2.8%;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        font-size: clamp(25px, 5.7vw, 48px);
+        line-height: 1.25;
+      }
+
+      h2 {
+        color: var(--green);
+        font-size: clamp(22px, 5vw, 40px);
+        line-height: 1.22;
+        margin-bottom: 5%;
+      }
+
+      p {
+        margin: 0;
+        font-size: clamp(15px, 3.3vw, 28px);
+        line-height: 1.52;
+      }
+
+      .summary {
+        margin-top: 5%;
+        color: #2e3b35;
+        font-size: clamp(16px, 3.6vw, 30px);
+        font-weight: 700;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3%;
+        margin-top: 8%;
+      }
+
+      .stat {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 9% 8%;
+      }
+
+      .stat span {
+        display: block;
+        color: var(--muted);
+        font-size: clamp(11px, 2.4vw, 20px);
+      }
+
+      .stat strong {
+        display: block;
+        color: var(--green);
+        font-size: clamp(20px, 5vw, 40px);
+        margin-top: 8%;
+      }
+
+      .event {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 5%;
+        margin-bottom: 4.2%;
+      }
+
+      .event-title {
+        display: flex;
+        gap: 3.4%;
+        align-items: center;
+        font-size: clamp(17px, 3.9vw, 32px);
+        font-weight: 800;
+      }
+
+      .num {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--green-2);
+        color: #fff;
+        font-size: 17px;
+        font-weight: 800;
+      }
+
+      .label {
+        color: var(--green);
+        font-size: clamp(12px, 2.6vw, 21px);
+        font-weight: 800;
+        margin-top: 4%;
+      }
+
+      .event p {
+        color: #47564f;
+        font-size: clamp(14px, 3.05vw, 25px);
+        margin-top: 1.3%;
+      }
+
+      .flow {
+        display: grid;
+        gap: 3.2%;
+        margin-top: 4%;
+      }
+
+      .flow-item {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 4.6%;
+        font-size: clamp(15px, 3.3vw, 28px);
+        font-weight: 800;
+        line-height: 1.42;
+      }
+
+      .flow-arrow {
+        color: var(--green-2);
+      }
+
+      .watch {
+        background: var(--soft);
+        border: 1px solid #bdd8ca;
+        border-radius: 18px;
+        padding: 5%;
+        margin-bottom: 4%;
+      }
+
+      .watch strong {
+        display: block;
+        color: var(--green);
+        font-size: clamp(16px, 3.6vw, 30px);
+        margin-bottom: 2%;
+      }
+
+      .footer {
+        position: absolute;
+        left: 6%;
+        right: 6%;
+        bottom: 4.8%;
+        color: var(--muted);
+        font-size: clamp(11px, 2.5vw, 20px);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      @media (min-width: 900px) {
+        .preview {
+          grid-template-columns: repeat(2, 420px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="preview">
+      <section class="card">
+        <div class="top">
+          <div class="brand">EMINAI DAILY REPORT</div>
+          <div class="date">2026-07-29 · 18:00 KST</div>
+        </div>
+        <div class="content">
+          <div class="eyebrow">CARD 1 · 오늘 한눈에</div>
+          <h1>미-이란 긴장과 협상 신호가 동시에 나온 하루</h1>
+          <p class="summary">
+            시장은 유가 급락과 기술주 조정으로 반응했다. 지정학 리스크는 완화 신호가 있었지만,
+            군사행동 경고가 남아 완전히 해소되지는 않았다.
+          </p>
+          <div class="stats">
+            <div class="stat"><span>수집</span><strong>37</strong></div>
+            <div class="stat"><span>분석</span><strong>12</strong></div>
+            <div class="stat"><span>대기</span><strong>25</strong></div>
+          </div>
+        </div>
+        <div class="footer"><span>주요 축: 미국 · 중동 · 기술주</span><span>1/5</span></div>
+      </section>
+
+      <section class="card">
+        <div class="top">
+          <div class="brand">EMINAI DAILY REPORT</div>
+          <div class="date">오늘 있었던 일</div>
+        </div>
+        <div class="content">
+          <div class="eyebrow">CARD 2 · 지정학</div>
+          <h2>1. 미-이란 발언 충돌</h2>
+          <div class="event">
+            <div class="event-title"><span class="num">1</span><span>무슨 일</span></div>
+            <p>트럼프는 이란 핵시설 타격 가능성을 경고했고, 이란은 미국과의 협상 요청을 부인했다.</p>
+            <div class="label">배경·원인</div>
+            <p>협상 기대가 일부 나오던 상황에서 양측 발언이 엇갈리며 긴장 완화와 재고조 신호가 동시에 나타났다.</p>
+            <div class="label">왜 중요한가</div>
+            <p>중동 리스크가 단순 완화 국면이 아니라, 발언 하나로 유가와 위험자산 선호가 흔들릴 수 있는 구간이다.</p>
+          </div>
+        </div>
+        <div class="footer"><span>영향도 8.0 · 위험 높음</span><span>2/5</span></div>
+      </section>
+
+      <section class="card">
+        <div class="top">
+          <div class="brand">EMINAI DAILY REPORT</div>
+          <div class="date">오늘 있었던 일</div>
+        </div>
+        <div class="content">
+          <div class="eyebrow">CARD 3 · 시장 반응</div>
+          <div class="event">
+            <div class="event-title"><span class="num">2</span><span>유가 급락</span></div>
+            <p>중동 긴장 완화 기대가 일부 반영되며 국제유가가 하락했다.</p>
+            <div class="label">배경·원인</div>
+            <p>군사 충돌 확대보다 협상 가능성에 시장이 먼저 반응하면서 리스크 프리미엄 일부가 빠졌다.</p>
+            <div class="label">왜 중요한가</div>
+            <p>유가 하락은 물가 부담 완화 기대를 만들지만, 군사 경고가 유지되면 급반등 위험도 남는다.</p>
+          </div>
+          <div class="event">
+            <div class="event-title"><span class="num">3</span><span>나스닥 조정</span></div>
+            <p>기술주 차익실현이 이어지며 나스닥100이 조정 구간에 들어섰다.</p>
+            <div class="label">의미</div>
+            <p>AI·반도체 중심 상승의 피로감이 커졌고, 방어주와 가치주로 자금 이동 조짐이 나타났다.</p>
+          </div>
+        </div>
+        <div class="footer"><span>자산: 원유 · 미국 기술주</span><span>3/5</span></div>
+      </section>
+
+      <section class="card">
+        <div class="top">
+          <div class="brand">EMINAI DAILY REPORT</div>
+          <div class="date">흐름으로 보기</div>
+        </div>
+        <div class="content">
+          <div class="eyebrow">CARD 4 · 원인 → 결과</div>
+          <h2>하루 흐름은 두 갈래로 움직였다</h2>
+          <div class="flow">
+            <div class="flow-item">협상 가능성 언급 <span class="flow-arrow">→</span> 중동 긴장 완화 기대</div>
+            <div class="flow-item">중동 리스크 프리미엄 축소 <span class="flow-arrow">→</span> 유가 급락</div>
+            <div class="flow-item">물가 부담 완화 기대 <span class="flow-arrow">→</span> 금리 부담 일부 완화</div>
+            <div class="flow-item">군사행동 경고 유지 <span class="flow-arrow">→</span> 지정학 리스크 잔존</div>
+            <div class="flow-item">기술주 차익실현 <span class="flow-arrow">→</span> 나스닥 조정과 순환매</div>
+          </div>
+        </div>
+        <div class="footer"><span>핵심: 완화 신호와 위험 신호가 공존</span><span>4/5</span></div>
+      </section>
+
+      <section class="card">
+        <div class="top">
+          <div class="brand">EMINAI DAILY REPORT</div>
+          <div class="date">내일 볼 것</div>
+        </div>
+        <div class="content">
+          <div class="eyebrow">CARD 5 · 후속 확인</div>
+          <h2>다음 보고 전 확인할 신호</h2>
+          <div class="watch">
+            <strong>1. 유가 반등 여부</strong>
+            <p>유가 하락이 긴장 완화의 시작인지, 단기 과잉 반응인지 확인해야 한다.</p>
+          </div>
+          <div class="watch">
+            <strong>2. 기술주 매도 확산 여부</strong>
+            <p>나스닥 조정이 AI·반도체 전반으로 번지는지, 일부 차익실현에 그치는지 봐야 한다.</p>
+          </div>
+          <div class="watch">
+            <strong>3. 미-이란 실제 협상 신호</strong>
+            <p>발언이 실제 회담 일정이나 중재 채널 확인으로 이어지는지가 중요하다.</p>
+          </div>
+        </div>
+        <div class="footer"><span>AI 분석 대기 25건 · 후속 보고에서 보강</span><span>5/5</span></div>
+      </section>
+    </main>
+  </body>
+</html>

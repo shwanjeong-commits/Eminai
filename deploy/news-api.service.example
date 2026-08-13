@@ -1,0 +1,15 @@
+[Unit]
+Description=Telegram News Intelligence API
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/telegram-news-intelligence
+EnvironmentFile=/opt/telegram-news-intelligence/.env
+Environment=HOST=0.0.0.0
+Environment=PORT=4173
+ExecStart=/opt/telegram-news-intelligence/.venv/bin/python src/api_server.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
