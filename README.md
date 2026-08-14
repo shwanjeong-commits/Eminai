@@ -271,3 +271,5 @@ can be analyzed later with `python src/ai_analyzer.py --limit 10`.
 The first login run asks Telegram login/session confirmation through Telethon. After that, the saved session can poll public channels automatically.
 
 If dependencies are installed into the project-local `vendor/` folder, scripts automatically load them through `src/bootstrap.py`.
+
+GitHub practice update.
