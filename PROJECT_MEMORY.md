@@ -300,3 +300,13 @@ At the start of any new task:
 After meaningful changes:
 - Update this file with deployment, security, automation, architecture, or operational-state changes.
 - Keep secrets out of this file. Record only the secret location and purpose.
+
+
+## n8n / Appsmith Integration
+
+- 2026-08-18: Added a separate `feature/eminai-ops-api` branch for machine-to-machine operations integration.
+- `/api/ops/status` reuses existing automation status, analysis statistics, AI status, filter audit, and queue estimate builders.
+- `/api/ops/news` exposes a bounded, filterable operations queue view without direct database access from n8n or Appsmith.
+- `/api/ops/manual-update` reuses `start_manual_update()`; `/api/ops/reanalyze` reuses the shared requeue logic and leaves AI execution to `analysis_worker`.
+- Ops routes use `X-Eminai-Ops-Key` backed by runtime-only `EMINAI_OPS_API_KEY`; no key value is stored in the repository or project memory.
+- Integration instructions are in `docs/N8N_APPSMITH_INTEGRATION.md`. No n8n server or Appsmith instance was configured in this repository task.

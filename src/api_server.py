@@ -47,6 +47,9 @@ LOGIN_FAILURE_WINDOW_SECONDS = int(os.getenv("LOGIN_FAILURE_WINDOW_SECONDS", "90
 LOGIN_LOCK_SECONDS = int(os.getenv("LOGIN_LOCK_SECONDS", "900"))
 LLM_RATE_LIMIT = int(os.getenv("LLM_RATE_LIMIT", "30"))
 LLM_RATE_WINDOW_SECONDS = int(os.getenv("LLM_RATE_WINDOW_SECONDS", "3600"))
+OPS_API_KEY_ENV = "EMINAI_OPS_API_KEY"
+OPS_RATE_LIMIT = int(os.getenv("OPS_RATE_LIMIT", "60"))
+OPS_RATE_WINDOW_SECONDS = int(os.getenv("OPS_RATE_WINDOW_SECONDS", "60"))
 
 LOGGER = logging.getLogger("eminai.security")
 if not LOGGER.handlers:
@@ -803,6 +806,94 @@ def start_manual_update() -> dict:
     return {"ok": True, "started": True, "status": "queued"}
 
 
+def ops_api_key() -> str:
+    load_dotenv()
+    return os.getenv(OPS_API_KEY_ENV, "").strip()
+
+
+def is_valid_ops_key(provided: str | None, expected: str | None = None) -> bool:
+    configured = (ops_api_key() if expected is None else expected).strip()
+    candidate = (provided or "").strip()
+    return bool(configured and candidate) and hmac.compare_digest(candidate, configured)
+
+
+def build_ops_status(connection) -> dict:
+    automation = get_status_payload(connection)
+    analysis_stats = build_analysis_stats(connection)
+    ai_status = build_ai_status(connection)
+    filter_status = build_filter_improvement(connection)
+    status_by_service = {item["service"]: item for item in automation}
+    counts = analysis_stats.get("byStatus", {})
+    return {
+        "ok": True,
+        "collector": status_by_service.get("telegram_live_collector", {"status": "unknown"}),
+        "analysisWorker": status_by_service.get("ai_analysis_worker", {"status": "unknown"}),
+        "manualUpdate": status_by_service.get(MANUAL_UPDATE_SERVICE, {"status": "idle"}),
+        "filterAudit": status_by_service.get("filter_audit_worker", {"status": "unknown"}),
+        "automationStatus": automation,
+        "analysis": {
+            "queued": int(counts.get("queued", 0) or 0),
+            "failed": int(counts.get("failed", 0) or 0),
+            "deferred": int(counts.get("deferred", 0) or 0),
+            "analyzed": int(counts.get("analyzed", 0) or 0),
+            "filtered": int(counts.get("filtered", 0) or 0),
+            "stats": analysis_stats,
+        },
+        "lastAnalyzedAt": analysis_stats.get("queueEstimate", {}).get("lastAnalyzedAt"),
+        "queueEstimate": analysis_stats.get("queueEstimate", {}),
+        "aiStatus": ai_status,
+        "filterAuditStatus": filter_status,
+    }
+
+
+def build_ops_news(connection, status: str | None, limit: int, offset: int, min_priority: float | None = None, content_type: str | None = None) -> list[dict]:
+    clauses = ["analysis_scope = 'analysis_target'"]
+    params: list[object] = []
+    if status:
+        clauses.append("analysis_status = ?")
+        params.append(status)
+    if min_priority is not None:
+        clauses.append("analysis_priority >= ?")
+        params.append(min_priority)
+    if content_type:
+        clauses.append("content_type = ?")
+        params.append(content_type)
+    params.extend([limit, offset])
+    rows = connection.execute(
+        f"""select id, source_channel, published_at, title, raw_text, analysis_status,
+                   analysis_priority, analysis_reason, impact_score, sentiment, risk_level, category,
+                   content_type, user_hidden, updated_at
+            from news_items where {' and '.join(clauses)}
+            order by published_at desc, id desc limit ? offset ?""",
+        tuple(params),
+    ).fetchall()
+    return [
+        {
+            "id": row["id"], "sourceChannel": row["source_channel"], "publishedAt": row["published_at"],
+            "title": row["title"] or compact(row["raw_text"], 180), "rawText": compact(row["raw_text"], 500),
+            "analysisStatus": row["analysis_status"], "analysisPriority": row["analysis_priority"],
+            "analysisReason": row["analysis_reason"], "impactScore": row["impact_score"],
+            "sentiment": row["sentiment"], "riskLevel": row["risk_level"], "category": row["category"],
+            "contentType": row["content_type"], "hidden": bool(row["user_hidden"]), "updatedAt": row["updated_at"],
+        }
+        for row in rows
+    ]
+
+
+def requeue_news_item(connection, news_id: int) -> bool:
+    row = connection.execute("select id from news_items where id = ?", (news_id,)).fetchone()
+    if not row:
+        return False
+    connection.execute(
+        """update news_items set analysis_status='queued', summary_ko=null, analysis_ko=null,
+           impact_score=null, sentiment=null, risk_level=null, category=null,
+           analysis_reason='user requested reanalysis', user_hidden=0, updated_at=current_timestamp
+           where id=?""",
+        (news_id,),
+    )
+    return True
+
+
 def build_analysis_stats(connection) -> dict:
     status_rows = connection.execute(
         """
@@ -1068,6 +1159,80 @@ class Handler(BaseHTTPRequestHandler):
         self.send_unauthorized()
         return False
 
+    def require_ops_auth(self) -> bool:
+        if not is_valid_ops_key(self.headers.get("X-Eminai-Ops-Key", "")):
+            self.send_json({"ok": False, "error": "machine authentication required"}, status=401)
+            return False
+        return True
+
+    def handle_ops_get(self, request_url) -> bool:
+        if not self.require_ops_auth():
+            return True
+        retry_after = request_retry_after("ops", self.client_key(), OPS_RATE_LIMIT, OPS_RATE_WINDOW_SECONDS)
+        if retry_after:
+            self.send_rate_limited(retry_after)
+            return True
+        try:
+            init_db()
+            if request_url.path == "/api/ops/status":
+                with connect() as connection:
+                    self.send_json(build_ops_status(connection))
+                return True
+            if request_url.path == "/api/ops/news":
+                query = parse_qs(request_url.query)
+                status = (query.get("status") or [None])[0]
+                allowed_statuses = {"pending", "queued", "analyzed", "review", "filtered", "failed", "deferred", "ignored"}
+                if status and status not in allowed_statuses:
+                    raise RequestValidationError("invalid status")
+                limit = int((query.get("limit") or ["50"])[0])
+                offset = int((query.get("offset") or ["0"])[0])
+                if not 1 <= limit <= 200 or offset < 0:
+                    raise RequestValidationError("invalid pagination")
+                min_priority_value = (query.get("min_priority") or [None])[0]
+                min_priority = float(min_priority_value) if min_priority_value not in (None, "") else None
+                content_type = (query.get("content_type") or [None])[0]
+                with connect() as connection:
+                    items = build_ops_news(connection, status, limit, offset, min_priority, content_type)
+                self.send_json({"ok": True, "items": items, "limit": limit, "offset": offset})
+                return True
+            self.send_json({"ok": False, "error": "not found"}, status=404)
+            return True
+        except Exception as error:
+            self.send_exception(error, "ops request failed")
+            return True
+
+    def handle_ops_post(self, request_path: str) -> bool:
+        if not self.require_ops_auth():
+            return True
+        retry_after = request_retry_after("ops", self.client_key(), OPS_RATE_LIMIT, OPS_RATE_WINDOW_SECONDS)
+        if retry_after:
+            self.send_rate_limited(retry_after)
+            return True
+        try:
+            if request_path == "/api/ops/manual-update":
+                self.send_json(start_manual_update())
+                return True
+            if request_path == "/api/ops/reanalyze":
+                payload = self.read_json_body()
+                try:
+                    news_id = int(payload.get("id") or 0)
+                except (TypeError, ValueError) as error:
+                    raise RequestValidationError("id must be an integer") from error
+                if news_id <= 0:
+                    raise RequestValidationError("missing news id")
+                init_db()
+                with connect() as connection:
+                    if not requeue_news_item(connection, news_id):
+                        self.send_json({"ok": False, "error": "news item not found"}, status=404)
+                        return True
+                self.send_json({"ok": True, "id": news_id, "status": "queued"})
+                return True
+            self.send_json({"ok": False, "error": "not found"}, status=404)
+            return True
+        except Exception as error:
+            self.send_exception(error, "ops request failed")
+            return True
+
     def do_GET(self) -> None:
         request_url = urlparse(self.path)
         if request_url.path == "/api/auth/status":
@@ -1086,6 +1251,9 @@ class Handler(BaseHTTPRequestHandler):
                     "sessionHours": AUTH_SESSION_SECONDS // 3600,
                 }
             )
+            return
+        if request_url.path.startswith("/api/ops/"):
+            self.handle_ops_get(request_url)
             return
         if request_url.path.startswith("/api/") and not self.require_api_auth(request_url.path):
             return
@@ -1175,6 +1343,9 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_json({"ok": False, "error": "cross-origin request blocked"}, status=403)
                 return
             self.handle_auth_logout()
+            return
+        if request_path.startswith("/api/ops/"):
+            self.handle_ops_post(request_path)
             return
         if request_path.startswith("/api/") and not self.require_api_auth(request_path):
             return
@@ -1411,23 +1582,7 @@ class Handler(BaseHTTPRequestHandler):
 
             with connect() as connection:
                 if action == "reanalyze":
-                    connection.execute(
-                        """
-                        update news_items
-                        set analysis_status = 'queued',
-                            summary_ko = null,
-                            analysis_ko = null,
-                            impact_score = null,
-                            sentiment = null,
-                            risk_level = null,
-                            category = null,
-                            analysis_reason = 'user requested reanalysis',
-                            user_hidden = 0,
-                            updated_at = current_timestamp
-                        where id = ?
-                        """,
-                        (news_id,),
-                    )
+                    requeue_news_item(connection, news_id)
                 elif action == "exclude":
                     connection.execute(
                         """
