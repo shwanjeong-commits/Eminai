@@ -1173,7 +1173,6 @@ class Handler(BaseHTTPRequestHandler):
             self.send_rate_limited(retry_after)
             return True
         try:
-            init_db()
             if request_url.path == "/api/ops/status":
                 with connect() as connection:
                     self.send_json(build_ops_status(connection))
